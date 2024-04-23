@@ -3,12 +3,17 @@
 ## Source: https://github.com/hexojs/hexo/
 
 # Site
-title: Hexo
+title: Hexo 草稿倉庫
 subtitle: ''
-description: ''
+description: '
+因為Hexo有Hexo-admin方便編輯
+所以草稿都會放在這邊
+
+整理過後的資料則會放在docusaurus框架的網站上
+'
 keywords:
-author: John Doe
-language: en
+author: Wei
+language: zh-TW
 timezone: ''
 
 # URL
@@ -104,3 +109,9 @@ deploy:
   type: git
   repo: https://github.com/cieliscute/cieliscute.github.io
   branch: gh-pages
+
+# hexo-admin authentification
+admin:
+  username: cieliscute
+  password_hash: $2a$10$oUi0132fRYImal02NkGWwOl5HWQmS.u81ixUl8vekgXdJGsEEaR/W
+  secret: my super secret phrase
