@@ -1,4 +1,4 @@
-title: '[JS] 物件'
+title: '[JS] 物件基本介紹'
 author: Wei
 tags: []
 categories:
@@ -107,6 +107,55 @@ delete bar // true
 
 ## ESLint風格補充
 有些撰寫風格會希望在物件內最後一個屬性後方再加上逗號，但是不加也不會有任何影響。
+
+## 未定義之屬性
+如果我們今天要存取沒有定義的屬性，會回傳`undefined`。假設我們又在該屬性下要新增物件屬性，會產生錯誤:
+```js
+const family={
+    name:'小明家',
+    deposit:1000,
+}
+console.log(family.ooxx.foo) // Uncaught TypeError: family.ooxx is undefined
+console.log('我沒有辦法被運行，因為前面出現錯誤了')
+```
+
+當出現錯誤時，後方的javascript程式碼都不會被運行。
+
+要解決這個問題可以預先先定義好`ooxx`是一個空物件:
+```js
+const family={
+    name:'小明家',
+    deposit:1000,
+    ooxx:{}
+}
+family.ooxx.foo='undefined下的屬性'
+```
+
+或是可以用可選串聯(`?.`)運算子來解決
+
+- [可選串聯](https://developer.mozilla.org/zh-TW/docs/Web/JavaScript/Reference/Operators/Optional_chaining) | MDN
+
+```js
+const family={
+    name:'小明家',
+    deposit:1000,
+}
+console.log(family.ooxx?.foo) //undefined
+console.log('我可以被運行')
+```
+可以發現只沒有出現錯誤，而是出現undefined。
+
+另外，如果在取得全域(window)下屬性出現錯誤時，造成後方程式碼無法運行的狀況，也可以透過對window物件存取屬性來解決這個問題:
+
+```js
+console.log(a) // 拋出錯誤
+console.log('我不會被執行，因為a沒有定義，拋出錯誤');
+```
+
+```js
+console.log(window.a) //undefined
+console.log('可以被執行');
+```
 
 
 
