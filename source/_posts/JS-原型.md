@@ -1,4 +1,4 @@
-title: '[JS] 原型'
+title: '[JS] 原型claude筆記'
 author: Wei Wei
 tags:
   - Javascript
