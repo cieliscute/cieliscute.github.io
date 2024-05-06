@@ -1,0 +1,362 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#222" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#222" media="(prefers-color-scheme: dark)"><meta name="generator" content="Hexo 7.2.0">
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" integrity="sha256-wiz7ZSCn/btzhjKDQBms9Hx4sSeUYsDrTLg7roPstac=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
+
+<script class="next-config" data-name="main" type="application/json">{"hostname":"example.com","root":"/","images":"/images","scheme":"Pisces","darkmode":true,"version":"8.19.2","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":{"enable":false,"style":null},"fold":{"enable":false,"height":500},"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"menu_item":"fadeInDown","post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"i18n":{"placeholder":"搜尋...","empty":"我們無法找到任何有關 ${query} 的搜索結果","hits_time":"${hits} 找到 ${time} 個結果","hits":"找到 ${hits} 個結果"}}</script><script src="/js/config.js"></script>
+
+    <meta name="description" content="創建物件的方法 物件實字 &#123;&#125; 建構函式 new Object  ps:建構函式產生的包裹物件可能會因為不同內容而使用不同的建構函式e.g: new Object(1) &gt;&gt; Number({1})e.g: new Object(‘1’) &gt;&gt; String({“1:”})e.g: new Object({myName:’小明’}) &gt;&gt; O">
+<meta property="og:type" content="article">
+<meta property="og:title" content="[JS] 物件基本介紹">
+<meta property="og:url" content="http://example.com/2024/05/04/JS-%E7%89%A9%E4%BB%B6/index.html">
+<meta property="og:site_name" content="Hexo 草稿倉庫">
+<meta property="og:description" content="創建物件的方法 物件實字 &#123;&#125; 建構函式 new Object  ps:建構函式產生的包裹物件可能會因為不同內容而使用不同的建構函式e.g: new Object(1) &gt;&gt; Number({1})e.g: new Object(‘1’) &gt;&gt; String({“1:”})e.g: new Object({myName:’小明’}) &gt;&gt; O">
+<meta property="og:locale" content="zh_TW">
+<meta property="article:published_time" content="2024-05-03T18:15:00.000Z">
+<meta property="article:modified_time" content="2024-05-06T05:51:22.316Z">
+<meta property="article:author" content="Wei">
+<meta name="twitter:card" content="summary">
+
+
+<link rel="canonical" href="http://example.com/2024/05/04/JS-%E7%89%A9%E4%BB%B6/">
+
+
+
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-TW","comments":true,"permalink":"http://example.com/2024/05/04/JS-%E7%89%A9%E4%BB%B6/","path":"2024/05/04/JS-物件/","title":"[JS] 物件基本介紹"}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title>[JS] 物件基本介紹 | Hexo 草稿倉庫</title>
+  
+
+
+
+
+
+
+
+
+  <noscript>
+    <link rel="stylesheet" href="/css/noscript.css">
+  </noscript>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <div class="column">
+      <header class="header" itemscope itemtype="http://schema.org/WPHeader"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切換導航欄" role="button">
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <p class="site-title">Hexo 草稿倉庫</p>
+      <i class="logo-line"></i>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger" aria-label="搜尋" role="button">
+    </div>
+  </div>
+</div>
+
+
+
+
+
+
+
+</header>
+        
+  
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          文章目錄
+        </li>
+        <li class="sidebar-nav-overview">
+          本站概要
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%89%B5%E5%BB%BA%E7%89%A9%E4%BB%B6%E7%9A%84%E6%96%B9%E6%B3%95"><span class="nav-number">1.</span> <span class="nav-text">創建物件的方法</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%89%A9%E4%BB%B6%E5%8F%96%E5%80%BC"><span class="nav-number">2.</span> <span class="nav-text">物件取值</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E9%BB%9E%E8%A8%98%E6%B3%95"><span class="nav-number">2.1.</span> <span class="nav-text">點記法</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%B8%AD%E6%8B%AC%E8%99%9F%E5%8F%96%E5%80%BC"><span class="nav-number">2.2.</span> <span class="nav-text">中括號取值</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%96%B0%E5%A2%9E%E5%B1%AC%E6%80%A7"><span class="nav-number">3.</span> <span class="nav-text">新增屬性</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%88%AA%E9%99%A4%E5%B1%AC%E6%80%A7"><span class="nav-number">4.</span> <span class="nav-text">刪除屬性</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#ESLint%E9%A2%A8%E6%A0%BC%E8%A3%9C%E5%85%85"><span class="nav-number">5.</span> <span class="nav-text">ESLint風格補充</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%9C%AA%E5%AE%9A%E7%BE%A9%E4%B9%8B%E5%B1%AC%E6%80%A7"><span class="nav-number">6.</span> <span class="nav-text">未定義之屬性</span></a></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">Wei</p>
+  <div class="site-description" itemprop="description"> 因為Hexo有Hexo-admin方便編輯 所以草稿都會放在這邊
+整理過後的資料則會放在docusaurus框架的網站上 </div>
+</div>
+<div class="site-state-wrap animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+        <a href="/archives/">
+          <span class="site-state-item-count">13</span>
+          <span class="site-state-item-name">文章</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+        <span class="site-state-item-count">1</span>
+        <span class="site-state-item-name">分類</span>
+      </div>
+      <div class="site-state-item site-state-tags">
+        <span class="site-state-item-count">2</span>
+        <span class="site-state-item-name">標籤</span>
+      </div>
+  </nav>
+</div>
+
+        </div>
+      </div>
+    </div>
+
+    
+  </aside>
+
+
+    </div>
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-TW">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2024/05/04/JS-%E7%89%A9%E4%BB%B6/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Wei">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Hexo 草稿倉庫">
+      <meta itemprop="description" content=" 因為Hexo有Hexo-admin方便編輯 所以草稿都會放在這邊
+整理過後的資料則會放在docusaurus框架的網站上 ">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="[JS] 物件基本介紹 | Hexo 草稿倉庫">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          [JS] 物件基本介紹
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">發表於</span>
+
+      <time title="創建時間：2024-05-04 02:15:00" itemprop="dateCreated datePublished" datetime="2024-05-04T02:15:00+08:00">2024-05-04</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">更新於</span>
+      <time title="修改時間：2024-05-06 13:51:22" itemprop="dateModified" datetime="2024-05-06T13:51:22+08:00">2024-05-06</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分類於</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/Tmp/" itemprop="url" rel="index"><span itemprop="name">Tmp</span></a>
+        </span>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody"><h2 id="創建物件的方法"><a href="#創建物件的方法" class="headerlink" title="創建物件的方法"></a>創建物件的方法</h2><ul>
+<li>物件實字 <code>&#123;&#125;</code></li>
+<li>建構函式 <code>new Object</code></li>
+</ul>
+<p>ps:建構函式產生的包裹物件可能會因為不同內容而使用不同的建構函式<br>e.g: new Object(1) &gt;&gt; Number({1})<br>e.g: new Object(‘1’) &gt;&gt; String({“1:”})<br>e.g: new Object({myName:’小明’}) &gt;&gt; Object { myName: “小明” }</p>
+<p><strong>所以建議還是使用物件實字的方式建立物件就好</strong></p>
+<h2 id="物件取值"><a href="#物件取值" class="headerlink" title="物件取值"></a>物件取值</h2><p>物件取值有兩種方式，先使用<strong>物件實字</strong>方式建立物件如下:</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> family=&#123;</span><br><span class="line">	<span class="attr">name</span>:<span class="string">&#x27;小明家&#x27;</span>,</span><br><span class="line">    <span class="attr">deposit</span>:<span class="number">1000</span>,</span><br><span class="line">    <span class="attr">members</span>:&#123;</span><br><span class="line">    	<span class="attr">mom</span>:<span class="string">&#x27;老媽&#x27;</span>,</span><br><span class="line">        <span class="attr">ming</span>:<span class="string">&#x27;小明&#x27;</span>,</span><br><span class="line">    &#125;,</span><br><span class="line">    <span class="attr">callFamily</span>:<span class="keyword">function</span>(<span class="params"></span>)&#123;</span><br><span class="line">    	<span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&#x27;聯絡小明家&#x27;</span>)</span><br><span class="line">    &#125;,</span><br><span class="line">    <span class="number">1</span>:<span class="string">&#x27;只能用中括號取得此值&#x27;</span>,</span><br><span class="line">    <span class="string">&#x27;2&#x27;</span>:<span class="string">&#x27;屬性一律為字串&#x27;</span>,</span><br><span class="line">    <span class="string">&#x27;$#@!&#x27;</span>:<span class="string">&#x27;$#@!-string&#x27;</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>取值的方式主要有兩種，分別為:</p>
+<ol>
+<li>點記法</li>
+<li>中括號取值</li>
+</ol>
+<h3 id="點記法"><a href="#點記法" class="headerlink" title="點記法"></a>點記法</h3><p>以上方物件範例來說，我們需要取得小明家存款(deposit)的內容，可以使用<code>family.deposit</code>取得。如果要調用<code>callFamily</code>這個函式的話，則是使用<code>family.callFamily()</code>即可執行該函式。</p>
+<p>點記法雖然很方便，但是他無法讀取數字或特殊符號的屬性，這時候就要使用中括號取值來解決。</p>
+<h3 id="中括號取值"><a href="#中括號取值" class="headerlink" title="中括號取值"></a>中括號取值</h3><p>中括號取值需要注意的地方在於，中括號內需要填入的是字串。</p>
+<p>例如同樣要取得存款(deposit)的值時，我們需要改寫為<code>family[&#39;deposit&#39;]</code>，中括號必須填入字串。</p>
+<p>同樣的，要取得<code>1:&#39;只能用中括號取得此值&#39;</code>的內容，需要使用<code>family[&#39;1&#39;]</code>來取得。但是這邊使用<code>family[1]</code>也可以，因為會自動將數值1轉型為字串1。</p>
+<p>但是如果需要取得<code>&#39;$#@!&#39;:&#39;$#@!-string&#39;</code>的內容時，就必須要輸入<code>family[&#39;$#@!&#39;]</code>。</p>
+<p>總結來說，因為物件的屬性必定是字串形式，所以在用中括號取值時一律使用字串就不會有問題了。</p>
+<p>補充:<br>使用中括號取值時，也可以用變數的形式傳入字串。例如:</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> foo=<span class="string">&#x27;$#@!&#x27;</span></span><br><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(family[foo]) <span class="comment">// &quot;$#@!-string&quot; </span></span><br></pre></td></tr></table></figure>
+<p>透過這種寫法可以增加程式碼撰寫時的彈性</p>
+<h2 id="新增屬性"><a href="#新增屬性" class="headerlink" title="新增屬性"></a>新增屬性</h2><p>一樣可以透過<strong>點記法</strong>或是<strong>中括號</strong>兩種方式增加</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">family.<span class="property">getMembers</span>=<span class="keyword">function</span>(<span class="params"></span>)&#123;<span class="keyword">return</span> <span class="variable language_">this</span>.<span class="property">members</span>&#125;</span><br><span class="line">family[<span class="string">&#x27;members&#x27;</span>][<span class="string">&#x27;dad&#x27;</span>]=<span class="string">&#x27;老爸&#x27;</span></span><br><span class="line"></span><br><span class="line">family.<span class="title function_">getMembers</span>();  <span class="comment">// Object &#123; mom: &quot;老媽&quot;, ming: &quot;小明&quot;, dad: &quot;老爸&quot; &#125;</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="刪除屬性"><a href="#刪除屬性" class="headerlink" title="刪除屬性"></a>刪除屬性</h2><ul>
+<li><a target="_blank" rel="noopener" href="https://developer.mozilla.org/zh-TW/docs/Web/JavaScript/Reference/Operators/delete">屬性的刪除</a> | MDN</li>
+</ul>
+<p>可以透過<code>delete</code>運算子 來刪除物件的屬性:</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">delete</span> family.<span class="property">deposit</span> <span class="comment">//true</span></span><br></pre></td></tr></table></figure>
+
+<p>如果刪除成功的時候會回傳true，但是就算原本該物件就沒有被指定刪除的屬性，仍然會return true(e.g:delete family.ooxx &gt;&gt; true)</p>
+<p>那麼什麼時候會回傳false呢? 如果操作無效的話就會回傳false。例如想要直接刪除family本身，但是因為family並不是一個物件的屬性，所以會回傳false，並且family也不會被刪除。</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">delete</span> family <span class="comment">//false</span></span><br><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(family) <span class="comment">// &#123;name:&#x27;小明家&#x27;,....&#125;</span></span><br></pre></td></tr></table></figure>
+
+<p>需要特別注意的地方是，當我們不使用<code>var</code>,<code>const</code>,<code>let</code>宣告的時候，實際上是在<code>window</code>底下新增該屬性，例如:</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> foo=<span class="string">&#x27;var宣告的foo&#x27;</span></span><br><span class="line"><span class="keyword">function</span> <span class="title function_">addBarUnderWindow</span>(<span class="params"></span>)&#123;</span><br><span class="line">bar=<span class="string">&#x27;新增在全域window底下的bar屬性&#x27;</span></span><br><span class="line">&#125;</span><br><span class="line"><span class="title function_">addBarUnderWindow</span>(); </span><br><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="variable language_">window</span>)  <span class="comment">//這邊可以看到window下面多了一個bar的屬性</span></span><br><span class="line"><span class="keyword">delete</span> foo <span class="comment">// false</span></span><br><span class="line"><span class="keyword">delete</span> bar <span class="comment">// true</span></span><br></pre></td></tr></table></figure>
+
+
+<h2 id="ESLint風格補充"><a href="#ESLint風格補充" class="headerlink" title="ESLint風格補充"></a>ESLint風格補充</h2><p>有些撰寫風格會希望在物件內最後一個屬性後方再加上逗號，但是不加也不會有任何影響。</p>
+<h2 id="未定義之屬性"><a href="#未定義之屬性" class="headerlink" title="未定義之屬性"></a>未定義之屬性</h2><p>如果我們今天要存取沒有定義的屬性，會回傳<code>undefined</code>。假設我們又在該屬性下要新增物件屬性，會產生錯誤:</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> family=&#123;</span><br><span class="line">    <span class="attr">name</span>:<span class="string">&#x27;小明家&#x27;</span>,</span><br><span class="line">    <span class="attr">deposit</span>:<span class="number">1000</span>,</span><br><span class="line">&#125;</span><br><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(family.<span class="property">ooxx</span>.<span class="property">foo</span>) <span class="comment">// Uncaught TypeError: family.ooxx is undefined</span></span><br><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&#x27;我沒有辦法被運行，因為前面出現錯誤了&#x27;</span>)</span><br></pre></td></tr></table></figure>
+
+<p>當出現錯誤時，後方的javascript程式碼都不會被運行。</p>
+<p>要解決這個問題可以預先先定義好<code>ooxx</code>是一個空物件:</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> family=&#123;</span><br><span class="line">    <span class="attr">name</span>:<span class="string">&#x27;小明家&#x27;</span>,</span><br><span class="line">    <span class="attr">deposit</span>:<span class="number">1000</span>,</span><br><span class="line">    <span class="attr">ooxx</span>:&#123;&#125;</span><br><span class="line">&#125;</span><br><span class="line">family.<span class="property">ooxx</span>.<span class="property">foo</span>=<span class="string">&#x27;undefined下的屬性&#x27;</span></span><br></pre></td></tr></table></figure>
+
+<p>或是可以用可選串聯(<code>?.</code>)運算子來解決</p>
+<ul>
+<li><a target="_blank" rel="noopener" href="https://developer.mozilla.org/zh-TW/docs/Web/JavaScript/Reference/Operators/Optional_chaining">可選串聯</a> | MDN</li>
+</ul>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> family=&#123;</span><br><span class="line">    <span class="attr">name</span>:<span class="string">&#x27;小明家&#x27;</span>,</span><br><span class="line">    <span class="attr">deposit</span>:<span class="number">1000</span>,</span><br><span class="line">&#125;</span><br><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(family.<span class="property">ooxx</span>?.<span class="property">foo</span>) <span class="comment">//undefined</span></span><br><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&#x27;我可以被運行&#x27;</span>)</span><br></pre></td></tr></table></figure>
+<p>可以發現只沒有出現錯誤，而是出現undefined。</p>
+<p>另外，如果在取得全域(window)下屬性出現錯誤時，造成後方程式碼無法運行的狀況，也可以透過對window物件存取屬性來解決這個問題:</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(a) <span class="comment">// 拋出錯誤</span></span><br><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&#x27;我不會被執行，因為a沒有定義，拋出錯誤&#x27;</span>);</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="variable language_">window</span>.<span class="property">a</span>) <span class="comment">//undefined</span></span><br><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&#x27;可以被執行&#x27;</span>);</span><br></pre></td></tr></table></figure>
+
+
+
+
+
+
+
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/2024/04/26/JS-Task-queue/" rel="prev" title="[JS] Task queue">
+                  <i class="fa fa-angle-left"></i> [JS] Task queue
+                </a>
+            </div>
+            <div class="post-nav-item">
+                <a href="/2024/05/06/S-prototype/" rel="next" title="[JS] prototype原型">
+                  [JS] prototype原型 <i class="fa fa-angle-right"></i>
+                </a>
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+  <div class="copyright">
+    &copy; 
+    <span itemprop="copyrightYear">2024</span>
+    <span class="with-love">
+      <i class="fa fa-heart"></i>
+    </span>
+    <span class="author" itemprop="copyrightHolder">Wei</span>
+  </div>
+  <div class="powered-by">由 <a href="https://hexo.io/" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/pisces/" rel="noopener" target="_blank">NexT.Pisces</a> 強力驅動
+  </div>
+
+    </div>
+  </footer>
+
+  
+  <div class="back-to-top" role="button" aria-label="回到頂端">
+    <i class="fa fa-arrow-up fa-lg"></i>
+    <span>0%</span>
+  </div>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+  
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
+<script src="/js/comments.js"></script><script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/next-boot.js"></script>
+
+  
+
+
+
+
+
+
+  
+
+
+
+
+
+</body>
+</html>
